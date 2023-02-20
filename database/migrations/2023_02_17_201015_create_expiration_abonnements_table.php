@@ -15,6 +15,12 @@ class CreateExpirationAbonnementsTable extends Migration
     {
         Schema::create('expiration_abonnements', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_abon')->unsigned();
+            $table->foreign('id_abon')->references('id')->on('abonnements')->onDelete('cascade');
+		    $table->boolean('status')->default(0);
+		    $table->timestamp('date_expire');
+		    $table->boolean('isActive')->default(0);
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }

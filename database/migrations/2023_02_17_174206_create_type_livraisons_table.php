@@ -15,6 +15,9 @@ class CreateTypeLivraisonsTable extends Migration
     {
         Schema::create('type_livraisons', function (Blueprint $table) {
             $table->id();
+            $table->string('libelle');
+		    $table->boolean('isActive')->default(0);
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }

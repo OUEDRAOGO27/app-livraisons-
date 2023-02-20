@@ -15,6 +15,13 @@ class CreateLivreursTable extends Migration
     {
         Schema::create('livreurs', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+		    $table->string('ident_front_photo');
+		    $table->string('ident_back_photo');
+		    $table->integer('id_type_piece')->unsigned();
+            $table->foreign('id_type_piece')->references('id')->on('type_pieces')->onDelete('cascade');
+		    $table->timestamp('date_expiration_piece');
             $table->timestamps();
         });
     }

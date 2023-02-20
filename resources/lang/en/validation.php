@@ -142,8 +142,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'titre' => [
+            'unique' => ' Cet titre existe déjà.',
         ],
     ],
 

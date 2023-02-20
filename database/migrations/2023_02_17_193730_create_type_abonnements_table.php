@@ -15,6 +15,14 @@ class CreateTypeAbonnementsTable extends Migration
     {
         Schema::create('type_abonnements', function (Blueprint $table) {
             $table->id();
+            $table->string('libelle');
+		    $table->integer('nbr_jours');
+		    $table->float('tarif');
+		    $table->string('titre_plan');
+		    $table->text('description_plan');
+		    $table->text('avantage_plan');
+		    $table->boolean('isActive')->default(0);
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }

@@ -15,6 +15,11 @@ class CreateParamsGeneralSitesTable extends Migration
     {
         Schema::create('params_general_sites', function (Blueprint $table) {
             $table->id();
+            $table->string('titre')->unique();
+		    $table->string('slogan');
+		    $table->string('logo');
+		    $table->boolean('isActive')->default(0);
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }

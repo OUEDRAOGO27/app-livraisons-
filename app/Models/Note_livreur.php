@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Type_livraison extends Model
+class Note_livreur extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,7 +17,9 @@ class Type_livraison extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'libelle',
+        'id_client',
+        'id_liv',
+        'notes',
         'isActive',
         'isDelete',
     ];

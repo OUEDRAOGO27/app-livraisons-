@@ -15,6 +15,11 @@ class CreateReseauxSociosTable extends Migration
     {
         Schema::create('reseaux_socios', function (Blueprint $table) {
             $table->id();
+            $table->string('titre');
+		    $table->string('logo');
+		    $table->text('lien_url');
+		    $table->boolean('isActive')->default(0);
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }

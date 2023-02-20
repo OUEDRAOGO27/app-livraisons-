@@ -15,6 +15,10 @@ class CreateParamsContactMailSitesTable extends Migration
     {
         Schema::create('params_contact_mail_sites', function (Blueprint $table) {
             $table->id();
+            $table->string('titre')->unique();
+		    $table->string('mail')->unique();
+		    $table->boolean('isActive')->default(0);
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }

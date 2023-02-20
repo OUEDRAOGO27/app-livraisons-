@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Type_livraison extends Model
+class Admin_droit_delete extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,7 +17,8 @@ class Type_livraison extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'libelle',
+        'id_admin',
+        'droit_delete',
         'isActive',
         'isDelete',
     ];

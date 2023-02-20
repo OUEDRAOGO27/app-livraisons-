@@ -15,6 +15,9 @@ class CreatePrixBasesTable extends Migration
     {
         Schema::create('prix_bases', function (Blueprint $table) {
             $table->id();
+            $table->integer('prix');
+		    $table->boolean('isActive')->default(0);
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }

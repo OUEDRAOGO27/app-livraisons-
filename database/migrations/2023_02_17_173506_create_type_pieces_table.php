@@ -15,6 +15,10 @@ class CreateTypePiecesTable extends Migration
     {
         Schema::create('type_pieces', function (Blueprint $table) {
             $table->id();
+            $table->string('libelle');
+		    $table->integer('nbr_face_img');
+		    $table->boolean('isActive')->default(0);
+            $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
     }
