@@ -22,15 +22,19 @@ class Type_abonnementController extends Controller
            'tarif' => 'required|digitsbetween:1,5',
            'titre_plan' => 'required|max:20|unique:Type_abonnements',
            'description_plan' => 'required|max:5000',
-           'avantage_plan' => 'required',
+           'avantage_plan' => 'required'
        ]);
        // traitement des données
-       $params_phone = new Type_abonnement();
-       $params_phone->titre = $request->titre;
-       $params_phone->numero = $request->numero;
-       $params_phone->isActive =  0;
-       $params_phone->isDelete =  0;
-       $params_phone->save();
+       $type_abonnement = new Type_abonnement();
+       $type_abonnement->libelle = $request->libelle;
+       $type_abonnement->nbr_jours = $request->nbr_jours;
+       $type_abonnement->tarif = $request->tarif;
+       $type_abonnement->titre_plan = $request->titre_plan;
+       $type_abonnement->description_plan = $request->description_plan;
+       $type_abonnement->avantage_plan = $request->avantage_plan;
+       $type_abonnement->isActive =  0;
+       $type_abonnement->isDelete =  0;
+       $type_abonnement->save();
        // reponse 
        return response()->json([
         "Status" => 1,
@@ -118,15 +122,23 @@ class Type_abonnementController extends Controller
            if (Type_abonnement::where(['id' => $id, 'isDelete' => 0 ])->exists()) {
                //validation
              $request->validate([
-               'titre' => 'required|max:50|unique:Type_abonnements',
-           'numero' => 'required|max:20|unique:Type_abonnements',
+                'libelle' => 'required|max:50|unique:Type_abonnements',
+                'nbr_jours' => 'required|digitsbetween:1,4',
+                'tarif' => 'required|digitsbetween:1,5',
+                'titre_plan' => 'required|max:20|unique:Type_abonnements',
+                'description_plan' => 'required|max:5000',
+                'avantage_plan' => 'required',
                  ]);
             $type_abonnement = Type_abonnement::where(['id' => $id, 'isDelete' => 0 ])->first();
            
              // traitement des données 
              $type_abonnement->update([
-                  "titre"=> $request->titre,
-                  "numero"=> $request->numero
+                  "libelle"=> $request->libelle,
+                  "nbr_jours"=> $request->nbr_jours,
+                  "tarif"=> $request->tarif,
+                  "titre_plan"=> $request->titre_plan,
+                  "description_plan"=> $request->description_plan,
+                  "avantage_plan"=> $request->avantage_plan
              ]);
             return response()->json([
                 "Status" => 1,

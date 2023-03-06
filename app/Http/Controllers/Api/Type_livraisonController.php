@@ -21,16 +21,15 @@ class Type_livraisonController extends Controller
         ]);
         // traitement des données
         $type_livraison = new Type_livraison();
-        $type_livraison->titre = $request->titre;
-        $type_livraison->numero = $request->numero;
+        $type_livraison->libelle = $request->libelle;
         $type_livraison->isActive =  0;
         $type_livraison->isDelete =  0;
         $type_livraison->save();
         // reponse 
         return response()->json([
          "Status" => 1,
-         "Alert" => 'Type_livraison enregistré avec succès',
-         "description"=> 'Création de contact téléphone pour la partie nos contacts sur l\'apps '
+         "Alert" => 'Type livraison enregistré avec succès',
+         "description"=> 'Création de type de livraison pour la partie nos contacts sur l\'apps '
         ]);
     }
    
@@ -119,8 +118,7 @@ class Type_livraisonController extends Controller
             
               // traitement des données 
               $type_livraison->update([
-                   "titre"=> $request->titre,
-                   "numero"=> $request->numero
+                   "libelle"=> $request->libelle
               ]);
              return response()->json([
                  "Status" => 1,
