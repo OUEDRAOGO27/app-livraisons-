@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AbonnementController;
+use App\Http\Controllers\Api\Admin_droit_insertController;
+use App\Http\Controllers\Api\CalculController;
+use App\Http\Controllers\Api\Demande_livraisonController;
 use App\Http\Controllers\Api\Expiration_abonnementController;
+use App\Http\Controllers\Api\Note_livreurController;
 use App\Http\Controllers\Api\Params_contact_general_siteController;
 use App\Http\Controllers\Api\Params_contact_mail_siteController;
 use App\Http\Controllers\Api\Params_contact_phone_siteController;
@@ -10,6 +14,7 @@ use App\Http\Controllers\Api\Reseaux_sociosController;
 use App\Http\Controllers\Api\Type_abonnementController;
 use App\Http\Controllers\Api\Type_livraisonController;
 use App\Http\Controllers\Api\Type_pieceController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('register/client', [UserController::class, 'create_client']);
-Route::post('register/livreur', [UserController::class, 'create_professionnel']);
+Route::post('register/livreur', [UserController::class, 'create_livreur']);
 Route::post('register/admin', [UserController::class, 'create_admin']);
 Route::post('login', [UserController::class, 'login']);
 
@@ -41,12 +46,80 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 /**
+ * Toutes noter livreur
+ *
+ *@package calcul tarifs
+ */
+//==================== CREATE ==========================================
+Route::post('note/livreur', [Note_livreurController::class, 'create']);
+Route::get('note/livreur/{id}', [Note_livreurController::class, 'showNoteOneUser']);
+
+
+
+/**
+ * Toutes les droit admin
+ *
+ *@package droit admin
+ */
+//==================== CREATE ==========================================
+Route::post('droit/admin/insert', [Admin_droit_insertController::class, 'create']);
+Route::get('calcul/show/tarifs', [Demande_livraisonController::class, 'tarifsClient']);
+
+
+
+
+
+/**
+ * Toutes les demandes de livraisons
+ *
+ *@package demandes de livraisons
+ */
+//==================== CREATE ==========================================
+Route::post('insert/demandes/livraisons', [Demande_livraisonController::class, 'create']);
+Route::get('calcul/show/tarifs', [Demande_livraisonController::class, 'tarifsClient']);
+
+
+
+
+
+
+
+
+
+
+/**
+ * Toutes les demandes de livraisons
+ *
+ *@package demandes de livraisons
+ */
+//==================== CREATE ==========================================
+Route::post('insert/demandes/livraisons', [Demande_livraisonController::class, 'create']);
+Route::get('calcul/show/tarifs', [Demande_livraisonController::class, 'tarifsClient']);
+
+
+
+
+
+
+
+
+/**
+ * Toutes les calcul tarifs
+ *
+ *@package calcul tarifs
+ */
+//==================== CREATE ==========================================
+Route::get('calcul/tarifs/{lat1}/{lon1}/{lat2}/{lon2}', [CalculController::class, 'getDistanceFromLatLonInKm']);
+Route::get('calcul/show/tarifs', [CalculController::class, 'tarifsClient']);
+
+
+/**
  * Toutes les expirations abonnement
  *
  *@package expirations abonnement
  */
 //==================== CREATE ==========================================
-Route::get('expirations/abonnement/{id}', [Expiration_abonnementController::class, 'verifiExpirationAbonnement']);
+//Route::get('expirations/abonnement/{id}', [Expiration_abonnementController::class, 'verifiExpirationAbonnement']);
 
 /**
  * Toutes les abonnementS

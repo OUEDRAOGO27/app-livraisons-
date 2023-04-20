@@ -19,6 +19,10 @@ class CreateExpirationAbonnementsTable extends Migration
             $table->foreign('id_abon')->references('id')->on('abonnements')->onDelete('cascade');
 		    $table->boolean('status')->default(0);
 		    $table->timestamp('date_expire');
+            $table->boolean('isNotify_abon_val_1')->default(0);
+            $table->boolean('isNotify_abon_val_2')->default(0);
+            $table->boolean('isNotify_abon_exp_1')->default(0);
+            $table->boolean('isNotify_abon_exp_2')->default(0);
 		    $table->boolean('isActive')->default(0);
             $table->boolean('isDelete')->default(0);
             $table->timestamps();

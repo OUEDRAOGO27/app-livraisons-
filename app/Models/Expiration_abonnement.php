@@ -16,11 +16,12 @@ class Expiration_abonnement extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    /* protected $fillable = [
         'id_abon',
         'status',
         'date_expire',
         'isActive',
         'isDelete',
-    ];
+    ]; */
+    protected $guarded =[];
 }

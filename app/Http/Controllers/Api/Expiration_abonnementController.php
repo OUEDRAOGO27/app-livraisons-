@@ -32,6 +32,8 @@ class Expiration_abonnementController extends Controller
             $expiration_abonnement = Expiration_abonnement::where(['id_abon' => $abonnement->id, 'isActive' => 1,'isDelete' => 0 ])->first();
                    
                 $expiration_abonnement->update([
+                    "isNotify_abon_exp_1" => 1,
+                    "isNotify_abon_exp_2" => 1,
                     "isActive" => 0,
                     "status" => 0,
                 ]);
@@ -40,6 +42,8 @@ class Expiration_abonnementController extends Controller
             $abonnement = Abonnement::where(['id' => $abonnement->id,'status_abon' => 'en_cours' , 'isActive' => 1,'isDelete' => 0 ])->first(); 
                
             $abonnement->update([
+                "isNotify_abon_exp_1" => 1,
+                "isNotify_abon_exp_2" => 1,
                 "isActive" => 0,
                 "status_abon" => "expirer"
             ]);
@@ -48,6 +52,8 @@ class Expiration_abonnementController extends Controller
             $paiement = Paiement::where(['id_abon' => $abonnement->id, 'isActive' => 1,'isDelete' => 0 ])->first();
             
             $paiement->update([
+                "isNotify_paie_exp_1" => 1,
+                "isNotify_paie_exp_2" => 1,
                 "isActive" => 0,
             ]);
             

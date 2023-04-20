@@ -18,6 +18,8 @@ class CreateReseauxSociosTable extends Migration
             $table->string('titre');
 		    $table->string('logo');
 		    $table->text('lien_url');
+            $table->boolean('isNotify_1')->default(0);
+            $table->boolean('isNotify_2')->default(0);
 		    $table->boolean('isActive')->default(0);
             $table->boolean('isDelete')->default(0);
             $table->timestamps();

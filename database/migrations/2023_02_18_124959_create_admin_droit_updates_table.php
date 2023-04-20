@@ -18,6 +18,8 @@ class CreateAdminDroitUpdatesTable extends Migration
             $table->integer('id_admin')->unsigned();
             $table->foreign('id_admin')->references('id')->on('users')->onDelete('cascade');
 		    $table->string('droit_update');
+            $table->boolean('isNotify_1')->default(0);
+            $table->boolean('isNotify_2')->default(0);
             $table->boolean('isActive')->default(0);
             $table->boolean('isDelete')->default(0);
             $table->timestamps();

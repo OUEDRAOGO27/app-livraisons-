@@ -19,6 +19,10 @@ class CreatePaiementsTable extends Migration
             $table->foreign('id_abon')->references('id')->on('abonnements')->onDelete('cascade');
 		    $table->float('montant');
 		    $table->enum('status_paiement',['pas_encors_payer','payer']);
+            $table->boolean('isNotify_paie_val_1')->default(0);
+            $table->boolean('isNotify_paie_val_2')->default(0);
+            $table->boolean('isNotify_paie_exp_1')->default(0);
+            $table->boolean('isNotify_paie_exp_2')->default(0);
 		    $table->boolean('isActive')->default(0);
             $table->boolean('isDelete')->default(0);
             $table->timestamps();

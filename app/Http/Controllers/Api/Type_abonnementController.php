@@ -24,7 +24,10 @@ class Type_abonnementController extends Controller
            'description_plan' => 'required|max:5000',
            'avantage_plan' => 'required'
        ]);
-       // traitement des données
+       $Type_abonnement_count = Type_abonnement::where(['isActive' => 1, 'isDelete' => 0 ])->get()->count();
+       // count
+if ($Type_abonnement_count >= 1) {
+          // traitement des données
        $type_abonnement = new Type_abonnement();
        $type_abonnement->libelle = $request->libelle;
        $type_abonnement->nbr_jours = $request->nbr_jours;
@@ -32,6 +35,8 @@ class Type_abonnementController extends Controller
        $type_abonnement->titre_plan = $request->titre_plan;
        $type_abonnement->description_plan = $request->description_plan;
        $type_abonnement->avantage_plan = $request->avantage_plan;
+       $type_abonnement->isNotify_1 = 1;
+       $type_abonnement->isNotify_2 = 1;
        $type_abonnement->isActive =  0;
        $type_abonnement->isDelete =  0;
        $type_abonnement->save();
@@ -41,6 +46,28 @@ class Type_abonnementController extends Controller
         "Alert" => 'Types abonnement enregistré avec succès',
         "description"=> 'Création de types abonnement pour la partie nos contacts sur l\'apps '
        ]);
+       }else{
+            // traitement des données
+       $type_abonnement = new Type_abonnement();
+       $type_abonnement->libelle = $request->libelle;
+       $type_abonnement->nbr_jours = $request->nbr_jours;
+       $type_abonnement->tarif = $request->tarif;
+       $type_abonnement->titre_plan = $request->titre_plan;
+       $type_abonnement->description_plan = $request->description_plan;
+       $type_abonnement->avantage_plan = $request->avantage_plan;
+       $type_abonnement->isNotify_1 = 1;
+       $type_abonnement->isNotify_2 = 1;
+       $type_abonnement->isActive =  1;
+       $type_abonnement->isDelete =  0;
+       $type_abonnement->save();
+       // reponse 
+       return response()->json([
+        "Status" => 1,
+        "Alert" => 'Types abonnement enregistré avec succès',
+        "description"=> 'Création de types abonnement pour la partie nos contacts sur l\'apps '
+       ]);
+       }
+       
    }
   
     

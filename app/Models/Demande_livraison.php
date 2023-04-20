@@ -28,6 +28,7 @@ class Demande_livraison extends Model
         'poids_colis',
         'quantite_colis',
         'taille_colis',
+        'tarifs',
         'date_livraison',
         'isActive',
         'isDelete',

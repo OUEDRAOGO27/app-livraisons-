@@ -17,41 +17,46 @@ class Demande_livraisonController extends Controller
     {
         //validation
         $request->validate([
-            'id_liv' => 'required|integer',
-            'id_type_abon' => 'required|integer'
+        'id_client'  => 'required|integer',
+        'id_type_liv'  => 'required|integer',
+        'long_depart' => 'required',
+        'lat_depart' => 'required',
+        'libelle_depart' => 'required',
+        'long_arrive' => 'required',
+        'lat_arrive' => 'required',
+        'libelle_arrive' => 'required',
+        'poids_colis' => 'required',
+        'quantite_colis' => 'required',
+        'taille_colis' => 'required',
+        'tarifs' => 'required',
+        'date_livraison' => 'date'
         ]);
-        // traitement des données 1 Demande_livraison
+        //  traitement des données 1 Demande_livraison
         $demande_livraison = new Demande_livraison();
-        $demande_livraison->id_liv = $request->id_liv;
-        $demande_livraison->id_type_abon = $request->id_type_abon;
-        $demande_livraison->status_abon = "en_cours";
+        $demande_livraison->id_client = $request->id_client;
+        $demande_livraison->id_type_liv = $request->id_type_liv;
+        $demande_livraison->long_depart = $request->long_depart;
+        $demande_livraison->lat_depart = $request->lat_depart;
+        $demande_livraison->libelle_depart = $request->libelle_depart;
+        $demande_livraison->long_arrive = $request->long_arrive;
+        $demande_livraison->lat_arrive = $request->lat_arrive;
+        $demande_livraison->libelle_arrive = $request->libelle_arrive;
+        $demande_livraison->poids_colis = $request->poids_colis;
+        $demande_livraison->quantite_colis = $request->quantite_colis;
+        $demande_livraison->taille_colis = $request->taille_colis;
+        $demande_livraison->tarifs = $request->tarifs;
+        $demande_livraison->date_livraison = isset($request->date_livraison)? $request->date_livraison : now();
+        $demande_livraison->isNotify_1 = 1;
+        $demande_livraison->isNotify_2 = 1;
         $demande_livraison->isActive = 1;
         $demande_livraison->isDelete = 0;
         $demande_livraison->save();
-        // traitement des données 2 paiement
         
-        $Demande_livraison = Demande_livraison::where(['id_liv' => $request->id_liv, 'id_type_abon' => $request->id_type_abon,'status_abon' => 'en_cours' , 'isActive' => 1,'isDelete' => 0 ])->first(); 
-        $type_Demande_livraison = Type_Demande_livraison::where(['id' => $request->id_type_abon, 'isActive' => 1, 'isDelete' => 0 ])->first();
-        $paiement = new Paiement();
-        $paiement->id_abon = $Demande_livraison->id;
-        $paiement->montant = $type_Demande_livraison->tarif;
-        $paiement->status_paiement = "payer";
-        $paiement->isActive = 1;
-        $paiement->isDelete = 0;
-        $paiement->save();
-        // traitement des données 3 expiration Demande_livraison
-        $expiration_Demande_livraison = new Expiration_Demande_livraison();
-        $expiration_Demande_livraison->id_abon = $demande_livraison->id;
-        $expiration_Demande_livraison->status = 1;
-        $expiration_Demande_livraison->date_expire = now()->addDays($type_Demande_livraison->nbr_jours);
-        $expiration_Demande_livraison->isActive = 1;
-        $expiration_Demande_livraison->isDelete = 0;
-        $expiration_Demande_livraison->save();
         // reponse
         return response()->json([
             "Status" => 1,
-            "Alert" => 'Demande de livraison payé avec succès',
-            "description" => 'paiement d\'demande de livraison pour la partie nos contacts sur l\'apps ',
+            "Alert" => 'Demande de livraison effectuée avec succès',
+            "description" => 'Demande de livraison effectuée par le client',
         ]);
     }
 

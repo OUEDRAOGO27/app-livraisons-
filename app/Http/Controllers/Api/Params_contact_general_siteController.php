@@ -24,11 +24,17 @@ class Params_contact_general_siteController extends Controller
         ]);
 
         $path = $request->file('logo')->store('public/assets/images/paramsGeneralNomSite');
-        // traitement des données
+
+        $Params_general_site_count = Params_general_site::where(['isActive' => 1, 'isDelete' => 0 ])->get()->count();
+        // count
+ if ($Params_general_site_count >= 1) {
+           // traitement des données
         $params_params_general_site = new Params_general_site();
         $params_params_general_site->titre = $request->titre;
         $params_params_general_site->slogan = $request->slogan;
         $params_params_general_site->logo = $path;
+        $params_params_general_site->isNotify_1 = 1;
+        $params_params_general_site->isNotify_2 = 1;
         $params_params_general_site->isActive =  0;
         $params_params_general_site->isDelete =  0;
         $params_params_general_site->save();
@@ -40,6 +46,27 @@ class Params_contact_general_siteController extends Controller
          "Alert" => 'Titre , slogan et logo de l\'app enregistré avec succès',
          "description"=> 'Création de  titre , slogan et logo de l\'app pour la partie nos réseaux socios sur l\'apps '
         ]);
+        }else{
+             // traitement des données
+        $params_params_general_site = new Params_general_site();
+        $params_params_general_site->titre = $request->titre;
+        $params_params_general_site->slogan = $request->slogan;
+        $params_params_general_site->logo = $path;
+        $params_params_general_site->isNotify_1 = 1;
+        $params_params_general_site->isNotify_2 = 1;
+        $params_params_general_site->isActive =  1;
+        $params_params_general_site->isDelete =  0;
+        $params_params_general_site->save();
+         // enregistrer image dans un dossier
+    
+        // reponse 
+        return response()->json([
+         "Status" => 1,
+         "Alert" => 'Titre , slogan et logo de l\'app enregistré avec succès',
+         "description"=> 'Création de  titre , slogan et logo de l\'app pour la partie nos réseaux socios sur l\'apps '
+        ]);
+        }
+        
     }
 
      /**

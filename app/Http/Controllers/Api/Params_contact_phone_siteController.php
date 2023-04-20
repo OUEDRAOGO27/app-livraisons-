@@ -20,10 +20,15 @@ class Params_contact_phone_siteController extends Controller
             'titre' => 'required|max:50|unique:params_contact_phone_sites',
             'numero' => 'required|max:20|unique:params_contact_phone_sites',
         ]);
-        // traitement des données
+        $Params_contact_phone_site_count = Params_contact_phone_site::where(['isActive' => 1, 'isDelete' => 0 ])->get()->count();
+        // count
+ if ($Params_contact_phone_site_count >= 1) {
+            // traitement des données
         $params_phone = new Params_contact_phone_site();
         $params_phone->titre = $request->titre;
         $params_phone->numero = $request->numero;
+        $params_phone->isNotify_1 = 1;
+        $params_phone->isNotify_2 = 1;
         $params_phone->isActive =  0;
         $params_phone->isDelete =  0;
         $params_phone->save();
@@ -33,6 +38,24 @@ class Params_contact_phone_siteController extends Controller
          "Alert" => 'Contact téléphone enregistré avec succès',
          "description"=> 'Création de contact téléphone pour la partie nos contacts sur l\'apps '
         ]);
+        }else{
+              // traitement des données
+        $params_phone = new Params_contact_phone_site();
+        $params_phone->titre = $request->titre;
+        $params_phone->numero = $request->numero;
+        $params_phone->isNotify_1 = 1;
+        $params_phone->isNotify_2 = 1;
+        $params_phone->isActive =  1;
+        $params_phone->isDelete =  0;
+        $params_phone->save();
+        // reponse 
+        return response()->json([
+         "Status" => 1,
+         "Alert" => 'Contact téléphone enregistré avec succès',
+         "description"=> 'Création de contact téléphone pour la partie nos contacts sur l\'apps '
+        ]);
+        }
+       
     }
    
      

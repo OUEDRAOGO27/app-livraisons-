@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTypeAbonnementsTable extends Migration
+class CreatePoidsColisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateTypeAbonnementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_abonnements', function (Blueprint $table) {
+        Schema::create('poids_colis', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
-		    $table->integer('nbr_jours');
-		    $table->float('tarif');
-		    $table->string('titre_plan');
-		    $table->text('description_plan');
-		    $table->text('avantage_plan');
+            $table->string('poid');
             $table->boolean('isNotify_1')->default(0);
             $table->boolean('isNotify_2')->default(0);
-		    $table->boolean('isActive')->default(0);
+            $table->boolean('isActive')->default(0);
             $table->boolean('isDelete')->default(0);
             $table->timestamps();
         });
@@ -36,6 +32,6 @@ class CreateTypeAbonnementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_abonnements');
+        Schema::dropIfExists('poids_colis');
     }
 }

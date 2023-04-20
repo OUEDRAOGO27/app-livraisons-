@@ -20,10 +20,15 @@ class Params_contact_mail_siteController extends Controller
             'titre' => 'required|max:50|unique:params_contact_mail_sites',
             'mail' => 'required|email|unique:params_contact_mail_sites',
         ]);
-        // traitement des données
+        $Params_contact_mail_site_count = Params_contact_mail_site::where(['isActive' => 1, 'isDelete' => 0 ])->get()->count();
+        // count
+ if ($Params_contact_mail_site_count >= 1) {
+            // traitement des données
         $params_mail = new Params_contact_mail_site();
         $params_mail->titre = $request->titre;
         $params_mail->mail = $request->mail;
+        $params_mail->isNotify_1 = 1;
+        $params_mail->isNotify_2 = 1;
         $params_mail->isActive =  0;
         $params_mail->isDelete =  0;
         $params_mail->save();
@@ -33,6 +38,24 @@ class Params_contact_mail_siteController extends Controller
          "Alert" => 'Contact email enregistré avec succès',
          "description"=> 'Création de contact email pour la partie nos contacts sur l\'apps '
         ]);
+        }else{
+             // traitement des données
+        $params_mail = new Params_contact_mail_site();
+        $params_mail->titre = $request->titre;
+        $params_mail->mail = $request->mail;
+        $params_mail->isNotify_1 = 1;
+        $params_mail->isNotify_2 = 1;
+        $params_mail->isActive =  1;
+        $params_mail->isDelete =  0;
+        $params_mail->save();
+        // reponse 
+        return response()->json([
+         "Status" => 1,
+         "Alert" => 'Contact email enregistré avec succès',
+         "description"=> 'Création de contact email pour la partie nos contacts sur l\'apps '
+        ]); 
+        }
+       
     }
    
 

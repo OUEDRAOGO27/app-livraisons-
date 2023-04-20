@@ -18,12 +18,17 @@ class Type_pieceController extends Controller
         //validation
         $request->validate([
             'libelle' => 'required|max:50|unique:Type_pieces',
-            'nbr_face_img' => 'required|digitsbetween:1,2|max:20',
+            'nbr_face_img' => 'required|digitsbetween:1,2',
         ]);
-        // traitement des données
+        $Type_piece_count = Type_piece::where(['isActive' => 1, 'isDelete' => 0 ])->get()->count();
+        // count
+        if ($Type_piece_count >= 1) {
+            // traitement des données
         $type_piece = new Type_piece();
         $type_piece->libelle = $request->libelle;
         $type_piece->nbr_face_img = $request->nbr_face_img;
+        $type_piece->isNotify_1 = 1;
+        $type_piece->isNotify_2 = 1;
         $type_piece->isActive = 0;
         $type_piece->isDelete = 0;
         $type_piece->save();
@@ -33,6 +38,23 @@ class Type_pieceController extends Controller
             "Alert" => 'Type de pièce enregistré avec succès',
             "description" => 'Création du type de pièce pour la partie nos contacts sur l\'apps ',
         ]);
+
+        }else{
+              // traitement des données
+        $type_piece = new Type_piece();
+        $type_piece->libelle = $request->libelle;
+        $type_piece->nbr_face_img = $request->nbr_face_img;
+        $type_piece->isActive = 1;
+        $type_piece->isDelete = 0;
+        $type_piece->save();
+        // reponse
+        return response()->json([
+            "Status" => 1,
+            "Alert" => 'Type de pièce enregistré avec succès',
+            "description" => 'Création du type de pièce pour la partie nos contacts sur l\'apps ',
+        ]);
+        }
+       
     }
 
     /**

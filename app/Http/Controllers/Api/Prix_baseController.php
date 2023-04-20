@@ -19,9 +19,14 @@ class Prix_baseController extends Controller
         $request->validate([
             'prix' => 'required|digitsbetween:1,4|unique:prix_bases',
         ]);
-        // traitement des données
+        $Prix_base_count = Prix_base::where(['isActive' => 1, 'isDelete' => 0 ])->get()->count();
+        // count
+ if ($Prix_base_count >= 1) {
+            // traitement des données
         $params_prix_base = new Prix_base();
         $params_prix_base->prix = $request->prix;
+        $params_prix_base->isNotify_1 = 1;
+        $params_prix_base->isNotify_2 = 1;
         $params_prix_base->isActive =  0;
         $params_prix_base->isDelete =  0;
         $params_prix_base->save();
@@ -31,6 +36,23 @@ class Prix_baseController extends Controller
          "Alert" => 'Prix de base  enregistré avec succès',
          "description"=> 'Création du prix de base pour les opérations dans l\'app '
         ]);
+        }else{
+             // traitement des données
+        $params_prix_base = new Prix_base();
+        $params_prix_base->prix = $request->prix;
+        $params_prix_base->isNotify_1 = 1;
+        $params_prix_base->isNotify_2 = 1;
+        $params_prix_base->isActive =  1;
+        $params_prix_base->isDelete =  0;
+        $params_prix_base->save();
+        // reponse 
+        return response()->json([
+         "Status" => 1,
+         "Alert" => 'Prix de base  enregistré avec succès',
+         "description"=> 'Création du prix de base pour les opérations dans l\'app '
+        ]); 
+        }
+       
     }
 
 

@@ -26,11 +26,16 @@ class Reseaux_sociosController extends Controller
         ]);
 
         $path = $request->file('logo')->store('public/assets/images/paramsReseauxSocios');
-        // traitement des données
+        $Reseaux_socios_count = Reseaux_socios::where(['isActive' => 1, 'isDelete' => 0 ])->get()->count();
+        // count
+ if ($Reseaux_socios_count >= 1) {
+            // traitement des données
         $params_Reseaux_socios = new Reseaux_socios();
         $params_Reseaux_socios->titre = $request->titre;
         $params_Reseaux_socios->logo = $path;
         $params_Reseaux_socios->lien_url = $request->lien_url;
+       $params_Reseaux_socios->isNotify_1 = 1;
+       $params_Reseaux_socios->isNotify_2 = 1;
         $params_Reseaux_socios->isActive =  0;
         $params_Reseaux_socios->isDelete =  0;
         $params_Reseaux_socios->save();
@@ -42,6 +47,27 @@ class Reseaux_sociosController extends Controller
          "Alert" => 'Contact réseau social enregistré avec succès',
          "description"=> 'Création de  réseau social pour la partie nos réseaux socios sur l\'apps '
         ]);
+        }else{
+             // traitement des données
+        $params_Reseaux_socios = new Reseaux_socios();
+        $params_Reseaux_socios->titre = $request->titre;
+        $params_Reseaux_socios->logo = $path;
+        $params_Reseaux_socios->lien_url = $request->lien_url;
+        $params_Reseaux_socios->isNotify_1 = 1;
+        $params_Reseaux_socios->isNotify_2 = 1;
+        $params_Reseaux_socios->isActive =  1;
+        $params_Reseaux_socios->isDelete =  0;
+        $params_Reseaux_socios->save();
+         // enregistrer image dans un dossier
+    
+        // reponse 
+        return response()->json([
+         "Status" => 1,
+         "Alert" => 'Contact réseau social enregistré avec succès',
+         "description"=> 'Création de  réseau social pour la partie nos réseaux socios sur l\'apps '
+        ]); 
+        }
+       
     }
 
      /**

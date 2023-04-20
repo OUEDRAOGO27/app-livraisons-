@@ -19,9 +19,14 @@ class Type_livraisonController extends Controller
         $request->validate([
             'libelle' => 'required|max:50|unique:Type_livraisons'
         ]);
-        // traitement des données
+        $Type_livraison_count = Type_livraison::where(['isActive' => 1, 'isDelete' => 0 ])->get()->count();
+        // count
+ if ($Type_livraison_count >= 1) {
+            // traitement des données
         $type_livraison = new Type_livraison();
         $type_livraison->libelle = $request->libelle;
+        $type_livraison->isNotify_1 = 1;
+        $type_livraison->isNotify_2 = 1;
         $type_livraison->isActive =  0;
         $type_livraison->isDelete =  0;
         $type_livraison->save();
@@ -31,6 +36,23 @@ class Type_livraisonController extends Controller
          "Alert" => 'Type livraison enregistré avec succès',
          "description"=> 'Création de type de livraison pour la partie nos contacts sur l\'apps '
         ]);
+        }else{
+              // traitement des données
+        $type_livraison = new Type_livraison();
+        $type_livraison->libelle = $request->libelle;
+        $type_livraison->isNotify_1 = 1;
+        $type_livraison->isNotify_2 = 1;
+        $type_livraison->isActive =  1;
+        $type_livraison->isDelete =  0;
+        $type_livraison->save();
+        // reponse 
+        return response()->json([
+         "Status" => 1,
+         "Alert" => 'Type livraison enregistré avec succès',
+         "description"=> 'Création de type de livraison pour la partie nos contacts sur l\'apps '
+        ]);
+        }
+       
     }
    
      

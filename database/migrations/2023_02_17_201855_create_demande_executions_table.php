@@ -19,7 +19,7 @@ class CreateDemandeExecutionsTable extends Migration
             $table->foreign('id_liv')->references('id')->on('users')->onDelete('cascade');
 		    $table->integer('id_dem_liv')->unsigned();
             $table->foreign('id_dem_liv')->references('id')->on('demande_executions')->onDelete('cascade');
-		    $table->enum('accord_client',['refuser','accepter']);
+		    $table->enum('accord_client',['refuser','accepter','en_cours']);
 		    $table->boolean('isActive')->default(0);
             $table->boolean('isDelete')->default(0);
             $table->timestamps();

@@ -28,7 +28,10 @@ class CreateDemandeLivraisonsTable extends Migration
 		    $table->string('poids_colis');
 		    $table->integer('quantite_colis');
 		    $table->string('taille_colis');
+            $table->float('tarifs');
 		    $table->timestamp('date_livraison');
+            $table->boolean('isNotify_1')->default(0);
+            $table->boolean('isNotify_2')->default(0);
 		    $table->boolean('isActive')->default(0);
             $table->boolean('isDelete')->default(0);
             $table->timestamps();

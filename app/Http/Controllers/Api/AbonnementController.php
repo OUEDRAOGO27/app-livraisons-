@@ -29,6 +29,8 @@ class AbonnementController extends Controller
         $abonnement->id_liv = $request->id_liv;
         $abonnement->id_type_abon = $request->id_type_abon;
         $abonnement->status_abon = "en_cours";
+        $abonnement->isNotify_abon_val_1 = 1;
+        $abonnement->isNotify_abon_val_2 = 1;
         $abonnement->isActive = 1;
         $abonnement->isDelete = 0;
         $abonnement->save();
@@ -40,6 +42,8 @@ class AbonnementController extends Controller
         $paiement->id_abon = $abonnement->id;
         $paiement->montant = $type_abonnement->tarif;
         $paiement->status_paiement = "payer";
+        $paiement->isNotify_paie_val_1 = 1;
+        $paiement->isNotify_paie_val_2 = 1;
         $paiement->isActive = 1;
         $paiement->isDelete = 0;
         $paiement->save();
@@ -48,6 +52,8 @@ class AbonnementController extends Controller
         $expiration_abonnement->id_abon = $abonnement->id;
         $expiration_abonnement->status = 1;
         $expiration_abonnement->date_expire = now()->addDays($type_abonnement->nbr_jours);
+        $expiration_abonnement->isNotify_abon_val_1 = 1;
+        $expiration_abonnement->isNotify_abon_val_2 = 1;
         $expiration_abonnement->isActive = 1;
         $expiration_abonnement->isDelete = 0;
         $expiration_abonnement->save();
